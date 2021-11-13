@@ -137,7 +137,7 @@
     var context = canvas.getContext('2d');
 
     // Choose the reference picture
-    var image = document.getElementById('reference1');
+    var image = document.getElementById('1');
 
     context.drawImage(image, 0, 0, canvas.width, canvas.height);
     var data = canvas.toDataURL('image/png');
