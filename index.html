@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Skedaddley-Doo Rattle Tattoo 2: Saddle Up Buckaroo</title>
+    <style>
+        * { padding: 0; margin: 0 }
+        #canvas {
+            display: none;
+        }
+
+        .camera {
+            width: 340px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .output {
+            width: 340px;
+            display: inline-block;
+        }
+
+        .contentarea {
+            font-size: 16px;
+            font-family: Arial;
+            text-align: center;
+        }
+
+        #startbutton, #printbutton, #resetbutton, #camerabutton {
+            position: static;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            bottom: 36px;
+            padding: 5px;
+            background-color: #6a67ce;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 1.0);
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+
+        #video {
+            border: 1px solid black;
+            width: 320px;
+            height: 240px;
+        }
+
+        #tattoo, #reference, #difference {
+            border: 1px solid black;
+            width: 320px;
+            height: 240px;
+        }
+
+        #container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        #container > div {
+            width: 320px;
+            height: 240px;
+            border: 2px dashed red;
+        }
+
+        .preview {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contentarea">
+        <h1>
+            Howdy Buckaroo!
+        </h1>
+
+        <div id="container">
+            <div>
+                <img id="reference" alt="The reference will appear in this box.">
+            </div>
+            <div>
+                <img id="tattoo" alt="The camera's capture will appear in this box.">
+            </div>
+            <div>
+                <img id="difference" alt="The difference between the images will appear in this box.">
+            </div>
+        </div>
+
+        <div class="camera">
+
+            <!--Upload reference images here-->
+            <img src="references/bird.png" alt="reference" class="preview hidden" id="bird">
+
+
+            <video id="video" class="hidden">Video stream not available.</video>
+        </div>
+
+        <div><button id="camerabutton">New Photo</button></div>
+        <div><button id="startbutton" class="hidden">Take Photo</button></div>
+        <div><button id="printbutton" class="hidden">Print Tattoo</button></div>
+        <div><button id="resetbutton" class="hidden">New Tattoo</button></div>
+        <canvas id="canvas"></canvas>
+    </div>
+
+
+    <img src="references/1.png" alt="reference" id="reference1" class="hidden">
+
+
+    <script src="./pixelmatch.js"></script>
+    <script src="./index.js"></script>
+</body>
+</html>
