@@ -1,7 +1,7 @@
 // Webcam code to take a picture of the tattoo
 (function() {
 
-  var width = 320; // We will scale the photo width to this
+  var width = 240; // We will scale the photo width to this
   var height = 0; // This will be computed based on the input stream
 
   var streaming = false;
@@ -33,8 +33,8 @@
 
       navigator.mediaDevices.getUserMedia({
               video: true,
-              width: 320,
-              height: 240,
+              width: 240,
+              height: 320,
               audio: false
           })
           .then(function(stream) {
@@ -181,7 +181,7 @@
     var canvas = document.createElement("canvas");
     canvas.width = image.width;
     canvas.height = image.height;
-    canvas.getContext("2d").drawImage(image, 0, 0, 320, 240);
+    canvas.getContext("2d").drawImage(image, 0, 0, 240, 320);
     return canvas;
   }
 
