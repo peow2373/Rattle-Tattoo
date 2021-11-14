@@ -34,7 +34,7 @@
             text-align: center;
         }
 
-        #startbutton, #printbutton, #resetbutton, #camerabutton {
+        #startbutton, #printbutton, #resetbutton{
             margin-left: 15px;
             margin-right: 15px;
             margin-top: 10px;
@@ -59,6 +59,14 @@
             margin-left: -40px;
             width: 320px;
             height: 240px;
+
+            /* Mirror Webcam */
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+
+            /* Rotate Webcam */
+            -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
         }
 
         #reference, #difference {
@@ -128,7 +136,6 @@
         </div>
 
         <div id="buttons">
-            <div><button id="camerabutton" class="hidden">New Photo</button></div>
             <div><button id="startbutton">Take Photo</button></div>
             <div><button id="printbutton" class="hidden">Print Tattoo</button></div>
             <div><button id="resetbutton">New Tattoo</button></div>
