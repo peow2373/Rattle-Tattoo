@@ -103,9 +103,45 @@
   }
 
   function printPhoto() {
-      var canvas = convertImageToCanvas(currentReference);
+      let downloadLink = document.createElement('a');
+      downloadLink.setAttribute('download', 'tattoo.png');
+
+      var tattooCanvas = convertImageToCanvas(currentTattoo);
+      var tattooContext = tattooCanvas.getContext("2d");
+      let tattooData = tattooContext.getImageData(0,0, tattooCanvas.width, tattooCanvas.height).data; 
+
+      var convertedImage = new ImageData(tattooCanvas.width, tattooCanvas.height);
+      var threshold = 50; 
+
+      // Converts tattoo image to black and white
+      for (var i = 0; i < tattooData.length; i += 4) {
+
+        var avg = (tattooData[i] + tattooData[i+1] + tattooData[i+2])/3;
+  
+        // Convert the pixels to black or white
+        if (avg >= threshold) avg = 255;
+        else avg = 0;
+  
+        // Create the B&W image
+        convertedImage.data[i] = avg;
+        convertedImage.data[i+1] = avg;
+        convertedImage.data[i+2] = avg;
+        convertedImage.data[i+3] = 255;
+      }
+
+      console.log(convertedImage);
+
+      // Draws the image on the canvas
+      var canvas = document.createElement("canvas");
+      canvas.width = tattooCanvas.width;
+      canvas.height = tattooCanvas.height;
+      var context = canvas.getContext('2d');
+      context.putImageData(convertedImage, 0, 0);
+
       canvas.toBlob(function(blob) {
-          saveAs(blob, "tattoo.png");
+        let url = URL.createObjectURL(blob);
+        downloadLink.setAttribute('href', url);
+        downloadLink.click();
       });
   }
 
@@ -185,7 +221,7 @@
     var canvas = document.createElement("canvas");
     canvas.width = image.width;
     canvas.height = image.height;
-    canvas.getContext("2d").drawImage(image, 0, 0, 240, 320);
+    canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
     return canvas;
   }
 
@@ -206,7 +242,7 @@
 
     currentDifference = image;
 
-    console.log(imgDataOutput);
+    //console.log(imgDataOutput);
   }
 
   function comparePixels(img1, img2, imgOutput) { 
