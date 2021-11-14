@@ -103,7 +103,10 @@
   }
 
   function printPhoto() {
-
+      var canvas = convertImageToCanvas(currentReference);
+      canvas.toBlob(function(blob) {
+          saveAs(blob, "tattoo.png");
+      });
   }
 
 
@@ -145,6 +148,7 @@
     
     currentReference = image;
 
+    // Sets the difference image to a gray screen
     context.fillStyle = "#AAA";
     context.fillRect(0, 0, canvas.width, canvas.height);
     data = canvas.toDataURL('image/png');
@@ -207,13 +211,19 @@
 
   function comparePixels(img1, img2, imgOutput) { 
     // Determines the tolerance for deciding if a pixel is black or white
-    var threshold = 120;
+    var threshold = 60;
     var samePixels = 0;
+    var transparentThreshold = 250;
 
     // Check to see if the pixels are the same color
     for (var i = 0; i < img1.length; i += 4) {
+
       var avg1 = (img1[i] + img1[i+1] + img1[i+2])/3;
       var avg2 = (img2[i] + img2[i+1] + img2[i+2])/3;
+
+      if (img1[i+3] < transparentThreshold) {
+        avg1 = 255;
+      }
 
       // Convert the pixels to black or white
       if (avg1 >= threshold) avg1 = 255;
