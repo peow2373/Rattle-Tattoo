@@ -127,7 +127,7 @@
       let downloadLink = document.createElement('a');
       downloadLink.setAttribute('download', 'tattoo.png');
 
-      var tattooCanvas = convertImageToCanvas(currentTattoo);
+      var tattooCanvas = convertImageToCanvas(photo);
       var tattooContext = tattooCanvas.getContext("2d");
       let tattooData = tattooContext.getImageData(0,0, tattooCanvas.width, tattooCanvas.height).data; 
 
