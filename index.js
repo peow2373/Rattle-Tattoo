@@ -300,8 +300,12 @@
       imgOutput.data[i+3] = 255;
 
       for (j = 0; j < 3; j++) {
-        // Change the color of the reference image to gray
-        if (avg1 == 0) imgOutput.data[i+j] = 125;
+        // Change the color of the reference image to red
+        if (avg1 == 0) {
+          if (j==0) imgOutput.data[i+j] = 255;
+          else if (j==2) imgOutput.data[i+j] = 255;
+          else imgOutput.data[i+j] = 0;
+        }
 
         // Change the color of pixels where the tattoo overlaps the reference to green
         if (avg1 == 0 && avg2 == 0) {
