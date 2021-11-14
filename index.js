@@ -28,7 +28,6 @@
   function startup() {
       video = document.getElementById('video');
       canvas = document.getElementById('canvas');
-      camerabutton = document.getElementById('camerabutton');
       startbutton = document.getElementById('startbutton');
       printbutton = document.getElementById('printbutton');
       resetbutton = document.getElementById('resetbutton');
@@ -71,22 +70,11 @@
           }
       }, false);
 
-      // If the "New Photo" button is pressed
-      camerabutton.addEventListener('click', function(ev) {
-          clearPhoto();
-          ev.preventDefault();
-
-          //camerabutton.classList.add("hidden");
-          //document.getElementById('cameraDiv').classList.remove("hidden");
-          startbutton.classList.remove("hidden");
-      }, false);
-
       // If the "Take Photo" button is pressed
       startbutton.addEventListener('click', function(ev) {
           takePicture();
           ev.preventDefault();
 
-          //camerabutton.classList.remove("hidden");
           //document.getElementById('cameraDiv').classList.add("hidden");
           //startbutton.classList.add("hidden");
           printbutton.classList.remove("hidden");
@@ -109,7 +97,6 @@
           showReference();
           ev.preventDefault();
 
-          //camerabutton.classList.add("hidden");
           //document.getElementById('cameraDiv').classList.add("hidden");
           //startbutton.classList.remove("hidden");
           printbutton.classList.add("hidden");
