@@ -38,11 +38,14 @@
       difference = document.getElementById('difference');
 
       navigator.mediaDevices.getUserMedia({
-              video: true,
-              width: 240,
-              height: 320,
               audio: false,
-              facingMode: "environment",
+              video: {
+                width: 240,
+                height: 320,
+                facingMode: {
+                  ideal: "environment"
+                }
+              }
           })
           .then(function(stream) {
               video.srcObject = stream;
