@@ -18,6 +18,12 @@
   var currentTattoo;
   var currentDifference;
 
+  var referenceNumber = 1;
+  var usedReferences = new Array();
+
+  var numSamePixels;
+  var totalPixels;
+
 
   function startup() {
       video = document.getElementById('video');
@@ -35,7 +41,8 @@
               video: true,
               width: 240,
               height: 320,
-              audio: false
+              audio: false,
+              facingMode: "environment",
           })
           .then(function(stream) {
               video.srcObject = stream;
@@ -63,10 +70,12 @@
 
       // If the "New Photo" button is pressed
       camerabutton.addEventListener('click', function(ev) {
-          camerabutton.classList.add("hidden");
-          video.classList.remove("hidden");
-          startbutton.classList.remove("hidden");
+          clearPhoto();
           ev.preventDefault();
+
+          //camerabutton.classList.add("hidden");
+          //document.getElementById('cameraDiv').classList.remove("hidden");
+          startbutton.classList.remove("hidden");
       }, false);
 
       // If the "Take Photo" button is pressed
@@ -74,11 +83,14 @@
           takePicture();
           ev.preventDefault();
 
-          camerabutton.classList.remove("hidden");
-          video.classList.add("hidden");
-          startbutton.classList.add("hidden");
+          //camerabutton.classList.remove("hidden");
+          //document.getElementById('cameraDiv').classList.add("hidden");
+          //startbutton.classList.add("hidden");
           printbutton.classList.remove("hidden");
           resetbutton.classList.remove("hidden");
+
+          document.getElementById('score').innerHTML = "Yoour tattoo was " + (Math.round(numSamePixels/totalPixels * 100)) + "% awesome!";
+          document.getElementById('score').classList.remove("hidden");
       }, false);
 
       // If the "Print Tattoo" button is pressed
@@ -89,17 +101,36 @@
 
       // If the "New Tattoo" button is pressed
       resetbutton.addEventListener('click', function(ev) {
+          clearPhoto();
+          referenceNumber = newReference();
+          showReference();
           ev.preventDefault();
 
-          camerabutton.classList.remove("hidden");
-          video.classList.add("hidden");
-          startbutton.classList.add("hidden");
+          //camerabutton.classList.add("hidden");
+          //document.getElementById('cameraDiv').classList.add("hidden");
+          //startbutton.classList.remove("hidden");
           printbutton.classList.add("hidden");
-          resetbutton.classList.add("hidden");  
+          //resetbutton.classList.add("hidden");  
+          document.getElementById('score').classList.add("hidden");
       }, false);
 
+      referenceNumber = newReference();
       showReference();
       clearPhoto();
+  }
+
+  function newReference() {
+      var number;
+
+      number = Math.floor(Math.random() * 60);
+      
+      for (var i=0; i < usedReferences.length; i++) {
+        if (number == usedReferences[i]) return newReference();
+      }
+
+      usedReferences.push(number);
+
+      return number;
   }
 
   function printPhoto() {
@@ -153,6 +184,7 @@
 
       var data = canvas.toDataURL('image/png');
       photo.setAttribute('src', data);
+      difference.setAttribute('src', data);
   }
 
   function takePicture() {
@@ -176,7 +208,10 @@
     var context = canvas.getContext('2d');
 
     // Choose the reference picture
-    var image = document.getElementById('1');
+    var image = document.getElementById(`${referenceNumber}`);
+
+    context.fillStyle = "#FFFFFF";
+    context.fillRect(0,0,canvas.width,canvas.height);
 
     context.drawImage(image, 0, 0, canvas.width, canvas.height);
     var data = canvas.toDataURL('image/png');
@@ -207,11 +242,11 @@
 
     const height = imgDataBefore.height;
     const width = imgDataAfter.width;
-    const totalPixels = height*width;
+    totalPixels = height*width;
 
     var imgDataOutput = new ImageData(width, height);
 
-    var numSamePixels = comparePixels(imgDataBefore.data, imgDataAfter.data, imgDataOutput);
+    numSamePixels = comparePixels(imgDataBefore.data, imgDataAfter.data, imgDataOutput);
 
     console.log((Math.round(numSamePixels/totalPixels * 100)) + "% accuracy");
   }
