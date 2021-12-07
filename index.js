@@ -80,7 +80,7 @@
           printbutton.classList.remove("hidden");
           resetbutton.classList.remove("hidden");
 
-          document.getElementById('score').innerHTML = "Yoour tattoo was " + (Math.round(numSamePixels/totalPixels * 100)) + "% awesome!";
+          document.getElementById('score').innerHTML = "Your tattoo was " + (Math.round(numSamePixels/totalPixels * 100)) + "% rootin' tootin'!";
           document.getElementById('score').classList.remove("hidden");
       }, false);
 
@@ -150,7 +150,7 @@
         convertedImage.data[i+3] = 255;
       }
 
-      console.log(convertedImage);
+      //console.log(convertedImage);
 
       // Draws the image on the canvas
       var canvas = document.createElement("canvas");
@@ -238,7 +238,7 @@
 
     numSamePixels = comparePixels(imgDataBefore.data, imgDataAfter.data, imgDataOutput);
 
-    console.log((Math.round(numSamePixels/totalPixels * 100)) + "% accuracy");
+    //console.log((Math.round(numSamePixels/totalPixels * 100)) + "% accuracy");
   }
 
   // Converts image to canvas; returns new canvas element
@@ -272,7 +272,7 @@
 
   function comparePixels(img1, img2, imgOutput) { 
     // Determines the tolerance for deciding if a pixel is black or white
-    var threshold = 60;
+    var threshold = 120;
     var samePixels = 0;
     var transparentThreshold = 250;
 
